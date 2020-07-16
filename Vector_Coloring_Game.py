@@ -46,20 +46,7 @@ adjacency_matrix_3=([0, 0, 0, 0, 0, 1, 1, 0, 0, 1],
                     [0, 0, 1, 1, 1, 0, 0, 1, 0, 1],
                     [1, 0, 0, 1, 0, 1, 0, 0, 1, 0])
 
-
-adjacency_matrix_4=([0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-                    [0, 0, 1, 1, 1, 1, 1, 1, 1, 1],
-                    [0, 0, 0, 1, 1, 1, 1, 1, 1, 1],
-                    [0, 0, 0, 0, 1, 1, 1, 1, 1, 1],
-                    [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],
-                    [0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
-                    [0, 0, 0, 0, 0, 0, 0, 1, 1, 1],
-                    [0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
-                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-
-
-level_lst = (adjacency_matrix_0, adjacency_matrix_1,adjacency_matrix_2,adjacency_matrix_3,adjacency_matrix_4)
+level_lst = (adjacency_matrix_0, adjacency_matrix_1,adjacency_matrix_2,adjacency_matrix_3)
 
 level = 0
 
@@ -76,9 +63,6 @@ color = 'black'
 ## ---Functions---
 
 def color_buttons():
-    red_btn = tk.Button(root, text="", bg='#FFFC5A', fg='#FFFC5A', height=4, width=8, command=lambda: set_color('#FFFC5A'))
-    red_btn.place(x=4, y=400)
-
     red_btn = tk.Button(root, text="", bg='red', fg='red', height=4, width=8, command=lambda: set_color('red'))
     red_btn.place(x=4, y=200)
 
@@ -87,6 +71,9 @@ def color_buttons():
 
     green_btn = tk.Button(root, text="", bg='green', fg='green', height=4, width=8, command=lambda: set_color('green'))
     green_btn.place(x=4, y=500)
+
+    yellow_btn = tk.Button(root, text="", bg='#FFFC5A', fg='#FFFC5A', height=4, width=8,command=lambda: set_color('#FFFC5A'))
+    yellow_btn.place(x=4, y=400)
     return
 
 
@@ -187,6 +174,8 @@ def next_level():
     if level != len(level_lst)-1:
         level += 1
         reset_borad()
+    if level > 2:
+        yellow_btn.configure(state = 'normal', bg='#FFFC5A',bd=2)
     return
 
 
@@ -202,6 +191,8 @@ def previous_level():
     if level > 0:
         level -= 1
         reset_borad()
+    if level < 3:
+        yellow_btn.configure(state='disabled',bg='#d9d9d9',bd=0)
     return
 
 
@@ -211,10 +202,25 @@ canvas = tk.Canvas(root, width=1500, height=800, bg='#d9d9d9')
 canvas.pack()
 root.resizable(False, False)
 
+
+##----Color Buttons----
+red_btn = tk.Button(root, text="", bg='red', height=4, width=8, command=lambda: set_color('red'))
+red_btn.place(x=4, y=200)
+
+blue_btn = tk.Button(root, text="", bg='blue', height=4, width=8, command=lambda: set_color('blue'))
+blue_btn.place(x=4, y=300)
+
+green_btn = tk.Button(root, text="", bg='green', height=4, width=8, command=lambda: set_color('green'))
+green_btn.place(x=4, y=400)
+
+yellow_btn = tk.Button(root, text="", bg='#d9d9d9', height=4, width=8,bd=0, state = 'disabled' ,command=lambda: set_color('#FFFC5A'))
+yellow_btn.place(x=4, y=500)
+
+
 ##----Draws Veritces----
 
 # outer pentagon, center=(750,400), raddius= 350
-vertices[0] = tk.Button(root, bg=vertex_color[0], fg='black', height=2, width=4, command=lambda: vertex_button_function(0))
+vertices[0] = tk.Button(root, bg=vertex_color[0], height=2, width=4, command=lambda: vertex_button_function(0))
 vertices[0].place(x=vertex_cords[0][0], y=vertex_cords[0][1], anchor='center')
 
 vertices[1] = tk.Button(root, bg=vertex_color[1], height=2, width=4, command=lambda: vertex_button_function(1))
@@ -254,7 +260,6 @@ for i in range(len(vertex_cords)):
 
 
 ## ---Run functions---
-color_buttons()
 check_graph_button()
 reset_button()
 next_button()
