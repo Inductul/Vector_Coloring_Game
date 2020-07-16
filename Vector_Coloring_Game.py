@@ -174,6 +174,7 @@ def next_level():
     if level != len(level_lst)-1:
         level += 1
         reset_borad()
+        set_color('black')
     if level > 2:
         yellow_btn.configure(state = 'normal', bg='#FFFC5A',bd=2)
     return
@@ -191,6 +192,7 @@ def previous_level():
     if level > 0:
         level -= 1
         reset_borad()
+        set_color('black')
     if level < 3:
         yellow_btn.configure(state='disabled',bg='#d9d9d9',bd=0)
     return
@@ -213,7 +215,7 @@ blue_btn.place(x=4, y=300)
 green_btn = tk.Button(root, text="", bg='green', height=4, width=8, command=lambda: set_color('green'))
 green_btn.place(x=4, y=400)
 
-yellow_btn = tk.Button(root, text="", bg='#d9d9d9', height=4, width=8,bd=0, state = 'disabled' ,command=lambda: set_color('#FFFC5A'))
+yellow_btn = tk.Button(root, text="", bg='#d9d9d9', height=4, width=8,bd=0, state = 'disabled',command=lambda: set_color('#FFFC5A'))
 yellow_btn.place(x=4, y=500)
 
 
